@@ -1,6 +1,6 @@
 # TicTacToeTah
 
-TicTacToeTah is a  twist on TicTacToe which requires you to think in three dimensions. Built using C# and WPF. It supports playing against your friends either locally or online and also has a challenging computer artifical intelligence.
+TicTacToeTah is a twist on TicTacToe which requires you to think in three dimensions. Built using C# and WPF. It supports playing against your friends either locally or online and also has a challenging computer artifical intelligence.
 
 # History
 This is a game I built in 2007 when learning WPF. It supported online play back then (with direct peer to peer communication) but that has not been tested in a long long long time. I am posting the description of it I wrote back then for historical value.
