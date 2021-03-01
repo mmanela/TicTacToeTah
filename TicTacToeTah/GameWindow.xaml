@@ -1,0 +1,155 @@
+﻿<Window x:Class="TicTacToeTah.GameWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="TicTacToeTah"
+    Width="911"
+    Height="800"
+    Loaded="WindowLoaded"
+        
+    >
+
+  <Window.Resources>
+    <Style TargetType="{x:Type Button}">
+      <Setter Property="Button.Background">
+        <Setter.Value>
+          <SolidColorBrush  x:Name="greenBrush" Color="#6ac20e" />
+        </Setter.Value>
+      </Setter>
+      <Style.Triggers>
+        <EventTrigger RoutedEvent="Button.MouseDown">
+          <EventTrigger.Actions>
+            <BeginStoryboard>
+              <Storyboard>
+                <ColorAnimation
+                  Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                  To="#000000" Duration="0:0:0" AutoReverse="True" RepeatBehavior="Forever" />
+              </Storyboard>
+            </BeginStoryboard>
+          </EventTrigger.Actions>
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="Button.MouseEnter">
+          <EventTrigger.Actions>
+            <BeginStoryboard>
+              <Storyboard>
+                <ColorAnimation
+                  Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                  To="#8ae22e" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever" />
+              </Storyboard>
+            </BeginStoryboard>
+          </EventTrigger.Actions>
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="Button.MouseLeave">
+
+          <EventTrigger.Actions>
+            <BeginStoryboard>
+              <Storyboard>
+                <ColorAnimation
+                  Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                  To="#6ac20e" Duration="0:0:0.5" />
+              </Storyboard>
+            </BeginStoryboard>
+          </EventTrigger.Actions>
+        </EventTrigger>
+      </Style.Triggers>
+    </Style>
+
+  </Window.Resources>
+  <Window.Background>
+    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+      <GradientStop Offset="0" Color="#f24a7d" />
+      <GradientStop Offset="1" Color="White"/>
+    </LinearGradientBrush>
+  </Window.Background>
+
+  <Viewbox Stretch="Fill">
+    <StackPanel Orientation="Horizontal" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  >
+
+      <StackPanel Orientation="Vertical" x:Name="GridHostingPanel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
+      <StackPanel Orientation="Vertical">
+        <GroupBox Margin="10" Padding="5" MinWidth="250" HorizontalAlignment="Right" x:Name="CurrentGame" VerticalAlignment="Top" >
+          <GroupBox.Header>
+            Game Info
+          </GroupBox.Header>
+          <StackPanel  Orientation="Vertical">
+            <Label Foreground="Black" FontSize="16" FontWeight="Bold" x:Name="gameInfo" Content="" />
+
+          </StackPanel>
+        </GroupBox>
+
+
+        <GroupBox Margin="10" Padding="5" MinWidth="250" HorizontalAlignment="Right" x:Name="ControlPanel" VerticalAlignment="Top" >
+          <GroupBox.Header>
+            Game Options
+          </GroupBox.Header>
+          <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+              <Label Content="Game Mode:  " />
+              <RadioButton IsChecked="True" x:Name="offlineRadio" VerticalAlignment="Center" Checked="OnOfflineMode"  Content="Offline  "  />
+              <RadioButton x:Name="onlineRadio" VerticalAlignment="Center" Checked="OnOnlineMode" Content="Online" />
+            </StackPanel>
+
+
+            
+              <StackPanel Visibility="Collapsed" Margin="0,0,0,20"  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="onlineControl">
+
+                
+                <StackPanel Orientation="Vertical" x:Name="onlineOptions" >
+                  <TextBlock FontWeight="Bold" FontSize="10" Width="200" x:Name="onlineStatus" Background="Transparent" HorizontalAlignment="Center" />
+                  <Label Content="Host Game" FontWeight="Bold"  HorizontalAlignment="Center"/>
+
+                  <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                    <Label Content="Your IP: " FontWeight="Bold" />
+                    <TextBox BorderBrush="Transparent" x:Name="myAddress" IsReadOnly="True" FontWeight="Bold" Background="Transparent" />
+                  </StackPanel>
+
+                  <Button HorizontalAlignment="Center" Name="hostButton" Click="OnHost" Width="100" FontWeight="Bold" >
+                    Host Game
+                  </Button>
+                  <Label Content="OR" FontWeight="Bold" HorizontalAlignment="Center"/>
+                  <Label Content="Conect to Host IP" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+                  <StackPanel Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox x:Name="ipAddress" Width="85" />
+                    <Button Click="OnConnect" Width="70" FontWeight="Bold" Margin="5,0,0,0" Content="Connect" />
+                  </StackPanel>
+                  <Button Click="OnlineAgain" Width="100" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    Play Again
+                  </Button> 
+                </StackPanel>
+              </StackPanel>
+
+            <StackPanel Orientation="Vertical" x:Name="offlineControl">
+              <StackPanel Margin="0,0,0,10" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label Margin="0,0,0,10" FontWeight="Bold" Content="Game Type:  " />
+                <RadioButton Margin="0,0,0,10" GroupName="gameType" IsChecked="True" x:Name="HumanVsHuman" VerticalAlignment="Center" Checked="OnHumanVsHuman"  Content="Human Vs. Human  "  />
+                <RadioButton Margin="0,0,0,10" GroupName="gameType" x:Name="HumanVsComputer" VerticalAlignment="Center" Checked="OnHumanVsComputer"  Content="Human Vs. Computer  "  />
+                <RadioButton Margin="0,0,0,10" GroupName="gameType" x:Name="ComputerVsHuman" VerticalAlignment="Center" Checked="OnComputerVsHuman"  Content="Computer Vs. Human  "  />
+                <RadioButton Margin="0,0,0,10" GroupName="gameType" x:Name="ComputerVsComputer" VerticalAlignment="Center" Checked="OnComputerVsComputer"  Content="Computer Vs. Computer  "  />
+
+                <Label Content="Computer Difficulty:" FontWeight="Bold" />
+                <WrapPanel Margin="0,0,0,10">
+                  <RadioButton Margin="0,0,10,0" GroupName="difficulty"  x:Name="Easy" VerticalAlignment="Center" Checked="OnDifficulty"  Content="Easy"  />
+                  <RadioButton Margin="0,0,10,0" GroupName="difficulty" IsChecked="True" x:Name="Medium" VerticalAlignment="Center" Checked="OnDifficulty"  Content="Medium"  />
+                </WrapPanel>
+                <WrapPanel>
+                  <RadioButton Margin="0,0,10,0" GroupName="difficulty" x:Name="Hard" VerticalAlignment="Center" Checked="OnDifficulty"  Content="Hard"  />
+                  <RadioButton Margin="0,0,10,0" GroupName="difficulty" x:Name="Impossible" VerticalAlignment="Center" Checked="OnDifficulty"  Content="Impossible"  />
+                </WrapPanel>
+              </StackPanel>
+
+              <Button Margin="0,20,0,0" HorizontalAlignment="Center" Name="newGameButton" Click="OnNewGame" Width="100" FontWeight="Bold" >
+                New Game
+              </Button>
+            </StackPanel>
+          </StackPanel>
+        </GroupBox>
+      </StackPanel>
+
+    </StackPanel>
+  </Viewbox>
+</Window>

@@ -1,0 +1,10 @@
+﻿<Grid x:Class="TicTacToeTah.GameBoard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent"
+      Loaded="GameBoardLoaded"
+       ShowGridLines="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+  
+  
+    </Grid>

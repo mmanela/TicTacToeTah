@@ -1,0 +1,95 @@
+<Grid x:Class="TicTacToeTah.LevelGrid"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent" 
+      Loaded="LevelGridLoaded"
+      ShowGridLines="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+
+
+  <Grid.Resources>
+
+    <!-- Use to Show and Hide numbers -->
+    <SolidColorBrush x:Name="SymbolLableBrush" x:Key="SymbolLableBrush" Color="Black" />
+    <SolidColorBrush x:Name="WinningLableBrush" x:Key="WinningLableBrush" Color="Green" />
+
+    <VisualBrush x:Name="BackBrush" x:Key="BackBrush" Opacity=".3" Stretch="UniformToFill" />
+    
+    <Style x:Key="CellButtonStyle">
+      <Setter Property="Button.Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Button}">
+
+            <ControlTemplate.Resources>
+
+              <Storyboard x:Key="CellEntryStoryboard">
+
+                <DoubleAnimation To="0.7" Duration="0:0:0.3" 
+                  Storyboard.TargetName="CellBorderBack" 
+                  Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Opacity)" />
+
+                <ThicknessAnimation To="4.0" Duration="0:0:0.3"
+                  Storyboard.TargetName="CellBorderBack" 
+                  Storyboard.TargetProperty="BorderThickness" />
+
+                <ColorAnimation To="DarkGreen" Duration="0:0:0.3"
+                  Storyboard.TargetName="CellBorderBack"
+                  Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)" />
+
+
+              </Storyboard>
+
+              <Storyboard x:Key="CellExitStoryboard">
+
+                <DoubleAnimation To="0.3" Duration="0:0:0.3" 
+                  Storyboard.TargetName="CellBorderBack" 
+                  Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Opacity)" />
+
+                <ThicknessAnimation To="0.2" Duration="0:0:0.3"
+                  Storyboard.TargetName="CellBorderBack" 
+                  Storyboard.TargetProperty="BorderThickness" />
+
+                <ColorAnimation To="Black" Duration="0:0:0.3"
+                  Storyboard.TargetName="CellBorderBack"
+                  Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)" />
+
+              </Storyboard>
+
+
+            </ControlTemplate.Resources>
+            
+            <Border x:Name="CellBorderBack" BorderThickness="0.2" SnapsToDevicePixels="True" >
+              <Border.BorderBrush>
+                <SolidColorBrush Color="Black"  Opacity=".3" />
+              </Border.BorderBrush>
+
+              <TextBlock x:Name="SymbolBlock" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="{StaticResource SymbolLableBrush}" FontWeight="Bold">
+                <ContentPresenter/>
+              </TextBlock>
+
+            </Border>
+
+
+            <ControlTemplate.Triggers>
+              <EventTrigger RoutedEvent="Canvas.MouseEnter">
+                <EventTrigger.Actions>
+                  <BeginStoryboard Storyboard="{StaticResource CellEntryStoryboard}" />
+                </EventTrigger.Actions>
+              </EventTrigger>
+
+              <EventTrigger RoutedEvent="Canvas.MouseLeave">
+                <EventTrigger.Actions>
+                  <BeginStoryboard Storyboard="{StaticResource CellExitStoryboard}" />
+                </EventTrigger.Actions>
+              </EventTrigger>
+            </ControlTemplate.Triggers>
+
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+  </Grid.Resources>
+  
+  
+  
+</Grid>
